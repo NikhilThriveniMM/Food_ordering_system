@@ -9,8 +9,8 @@ const Error = () => {
             <img  className="error-img" src={errorImg} alt="red"></img>
             <h2>{status+" "+statusText}</h2>
             <h3 className="error-info">{data}</h3>
-            {/* <p>{error.message}</p> */}
-            {/* <p>{error.stack}</p> */}
+            <p>{error?.message}</p>
+            <p>{error?.stack}</p>
             <button type="button" className="error-btn">Show saved copy</button>
         </div>
     );

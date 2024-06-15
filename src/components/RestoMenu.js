@@ -27,7 +27,7 @@ return (
             <h2>Menu items</h2>
             <ul>
                 {
-                    itemCards.map((x)=>(
+                    itemCards?.map((x)=>(
                         <li key={x?.card?.info?.id}>{x?.card?.info?.name}----Rs-{x?.card?.info?.defaultPrice/100 || x?.card?.info?.price/100}</li>
                     ))
                 }
