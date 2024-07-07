@@ -27,4 +27,6 @@ You may also see any lint errors in the console.
 
 ![Screenshot 2024-07-07 215503](https://github.com/NikhilThriveniMM/Food_ordering_system/assets/160772455/be0c160d-2d7c-49aa-bd5d-76191dd6d16b)
 
+![Screenshot 2024-07-07 215723](https://github.com/NikhilThriveniMM/Food_ordering_system/assets/160772455/c64b694d-67e3-4921-ab5f-02031fb5aafa)
+
 
