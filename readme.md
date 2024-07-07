@@ -22,3 +22,9 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+## SnapShots
+
+![Screenshot 2024-07-07 215503](https://github.com/NikhilThriveniMM/Food_ordering_system/assets/160772455/be0c160d-2d7c-49aa-bd5d-76191dd6d16b)
+
+
