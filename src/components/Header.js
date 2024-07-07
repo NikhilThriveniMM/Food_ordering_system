@@ -1,14 +1,15 @@
 import { useState } from "react";
-import image from "../../images/images.jpeg"
 import {Link} from "react-router-dom"
 import useInternetStatus from "../utils/useInternetStatus";
-
-
+import { useSelector } from "react-redux";
+import image from "../../images/images.jpeg";
 
 const Header = () =>{
     let [signBtn, SetSignBtn] = useState("Sign In");
     const internetStatus = useInternetStatus();
-    console.log(internetStatus);
+
+    const selector = useSelector((store) => store.cart.items);
+
     return (
         <div className="header flex justify-between">
 
@@ -24,7 +25,11 @@ const Header = () =>{
                     <li>Offers <sup id="new"> NEW</sup></li>
                     <li>Swiggy Corporate</li>
                     <li><Link to="/help" className="link">Help</Link></li>
-                    <li>Cart</li>
+                    <li className="font-bold">
+                        <Link to="/cart">
+                            Cart ({selector.length} - items)
+                        </Link>
+                    </li>
                     <button className="sign-btn" onClick={()=>{
                         if(signBtn === "Sign In"){
                             SetSignBtn("Sign Out");

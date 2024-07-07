@@ -1,39 +1,34 @@
 import Shimmer from "./Shimmer.js";
 import { useParams } from "react-router-dom";
 import useResMenu from "../utils/useResMenu.js";
+import RestoMenuItem from "./RestoMenuItem.js";
+import RestoMenuNested from "./RestoMenuNested.js";
 
 const RestoMenu = () => {
+
     const resID = useParams();
-    // console.log(resID.id);
-   
     const resRestoMenu = useResMenu(resID.id);
 
 if(resRestoMenu === null){
-    // console.log("true");
     return <Shimmer />
 }
+
 const {name,cuisines,costForTwoMessage} = resRestoMenu?.cards[2]?.card?.card?.info;
-// console.log(name);
-// console.log(cuisines);
-// console.log(costForTwoMessage);
-// console.log(resRestoMenu)
-
-const {itemCards} = resRestoMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card;
-// console.log(resRestoMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[2]?.card?.card);
+const type = resRestoMenu?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter((c) => {
+    return c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory" || c?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+});
 return (
-        <div className="outer-menu">
-            <h1>{name}</h1>
-            <p>{cuisines.join(", ")+" - Rs"+costForTwoMessage}</p>
-            <h2>Menu items</h2>
-            <ul>
+        <div className="outer-menu text-center">
+            <h1 className="font-bold mt-4 text-2xl font-sans">{name}</h1>
+            <p className="font-bold text-md font-sans">{cuisines.join(", ")+" - Rs"+costForTwoMessage}</p>
                 {
-                    itemCards?.map((x)=>(
-                        <li key={x?.card?.info?.id}>{x?.card?.info?.name}----Rs-{x?.card?.info?.defaultPrice/100 || x?.card?.info?.price/100}</li>
-                    ))
+                  type?.map((x) => {
+                    // console.log(x);
+                    return (x?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory") ?
+                    <RestoMenuItem key={x.card.card.title} data={x}/> : <RestoMenuNested key={x.card.card.title} data={x}/>
+                  }) 
                 }
-            </ul>
-
-            
+   
         </div>
     );
 };

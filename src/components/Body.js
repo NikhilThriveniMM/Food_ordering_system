@@ -1,8 +1,9 @@
-import RestoCard from "./RestoCard";
+import RestoCard ,{ VegLabel } from "./RestoCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer.js";
 import { Link } from "react-router-dom";
 import useInternetStatus from "../utils/useInternetStatus.js";
+import {RESTORENT_DETAILS} from "../utils/constant.js";
 
 const Body = () =>{
     const [fullRestoList,setFullRestoList] = useState([]);
@@ -11,6 +12,8 @@ const Body = () =>{
 
     const [searchText,setsearchText] = useState("");
 
+    const VegDisplayed = VegLabel(fullRestoList);
+
 
     useEffect(()=>{
         fetchData();
@@ -18,8 +21,8 @@ const Body = () =>{
 
 
 const fetchData = async() => {
-        
-        const date = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.96340&lng=77.58550&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
+
+        const date = await fetch(RESTORENT_DETAILS);
 
         const jsonData = await date.json();
 
@@ -40,7 +43,7 @@ const fetchData = async() => {
             
     }
 
-    return (listOfResto.length===0) ? <Shimmer/>:(
+    return (listOfResto?.length===0) ? <Shimmer/>:(
         <div className="upper">
             <div className="flex-btn">
             <div className="filter-btn">
@@ -82,8 +85,10 @@ const fetchData = async() => {
                     <RestoCard result={obj[8]}/>
                     <RestoCard result={obj[9]}/> */}
                     {
-                        listOfResto.map((x)=>(
-                         <Link key ={x.info.id} to={"/menu/"+ x.info.id}>   <RestoCard  result={x}/> </Link>
+                        listOfResto?.map((x)=>(
+                         <Link key ={x.info.id} to={"/menu/"+ x.info.id}>
+                            {(x?.info?.veg == true) ?<VegDisplayed result={x}/> : <RestoCard  result={x}/>}
+                        </Link>
                         ))
                     }
                     
